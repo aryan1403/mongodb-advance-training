@@ -1,0 +1,52 @@
+Geo Index
+
+db.places.insertMany( [
+   {
+      loc: { type: "Point", coordinates: [ -73.97, 40.77 ] },
+      name: "Central Park",
+      category : "Park"
+   },
+   {
+      loc: { type: "Point", coordinates: [ -73.88, 40.78 ] },
+      name: "La Guardia Airport",
+      category: "Airport"
+   },
+   {
+      loc: { type: "Point", coordinates: [ -1.83, 51.18 ] },
+      name: "Stonehenge",
+      category : "Monument"
+   }
+] )
+
+
+db.places.createIndex( { loc : "2dsphere" } )
+
+db.places.find( {
+   loc: {
+      $geoWithin: {
+         $geometry: {
+            type: "Polygon",
+            coordinates: [ [
+               [ -73.95, 40.80 ],
+               [ -73.94, 40.79 ],
+               [ -73.97, 40.76 ],
+               [ -73.98, 40.76 ],
+               [ -73.95, 40.80 ]
+            ] ]
+          }
+      }
+   }
+} )
+
+db.places.find( {
+   loc: {
+      $near: {
+         $geometry: {
+            type: "Point",
+            coordinates: [ -73.92, 40.78 ]
+         },
+         $maxDistance : 5000
+      }
+   }
+} )
+
