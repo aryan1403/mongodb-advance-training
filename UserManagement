@@ -1,0 +1,12 @@
+Create a User
+
+db.createUser({user:"admin", pwd:"admin", roles: ["userAdminAnyDatabase", "dbAdminAnyDatabase"]})
+
+To create user with read rights
+db.createUser( {user: "aryan", pwd: "aryan", roles: [ {role: "read", db: "trainingdb" } ]}) 
+
+
+To create user with read & Write rights
+db.createUser( {user: "arush", pwd: "arush", roles: [ {role: "read", db: "trainingdb" }, {role: "readWrite", db: "test"} ]}) 
+
+
