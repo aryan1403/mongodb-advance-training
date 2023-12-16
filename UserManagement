@@ -9,4 +9,6 @@ db.createUser( {user: "aryan", pwd: "aryan", roles: [ {role: "read", db: "traini
 To create user with read & Write rights
 db.createUser( {user: "arush", pwd: "arush", roles: [ {role: "read", db: "trainingdb" }, {role: "readWrite", db: "test"} ]}) 
 
+db.updateUser('aryan', {pwd: 'ar123'})
+
 
