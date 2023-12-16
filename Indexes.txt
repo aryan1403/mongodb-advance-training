@@ -1,0 +1,52 @@
+Text Index
+
+db.blog.insertMany( [
+   {
+     _id: 1,
+     content: "This morning I had a cup of coffee.",
+     about: "beverage",
+     keywords: [ "coffee" ]
+   },
+   {
+     _id: 2,
+     content: "Who likes chocolate ice cream for dessert?",
+     about: "food",
+     keywords: [ "poll" ]
+   },
+   {
+     _id: 3,
+     content: "My favorite flavors are strawberry and coffee",
+     about: "ice cream",
+     keywords: [ "food", "dessert" ]
+   }
+] )
+
+
+db.blog.createIndex( { "content": "text" } )
+
+db.blog.find(
+   {
+      $text: { $search: "coffee" }
+   }
+)
+
+db.blog.find(
+   {
+      $text: { $search: "food" }
+   }
+)
+
+
+db.blog.createIndex(
+   {
+      "about": "text",
+      "keywords": "text"
+   }
+)
+
+db.blog.find(
+   {
+      $text: { $search: "food" }
+   }
+)
+
