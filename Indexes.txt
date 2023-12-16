@@ -115,4 +115,38 @@ db.quotes.find(
 
 // "hay" is a stop word in spanish for text indexes
 
+Use Any Field to Specify Text Index Language
+
+db.quotes.insertMany(
+   [
+      {
+         _id: 1,
+         idioma: "portuguese",
+         quote: "A sorte protege os audazes"
+      },
+      {
+         _id: 2,
+         idioma: "spanish",
+         quote: "Nada hay más surrealista que la realidad."
+      },
+      {
+         _id: 3,
+         idioma: "english",
+         quote: "is this a dagger which I see before me"
+      }
+   ]
+)
+
+db.quotes.createIndex(
+   { quote : "text" },
+   { language_override: "idioma" }
+)
+
+db.quotes.find(
+   {
+      $text: { $search: "audazes" }
+   }
+)
+
+
 
