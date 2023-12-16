@@ -80,4 +80,39 @@ db.blog.createIndex( { "$**": "text" } )
 db.blog.find( { $text: { $search: "coffee" } } )
 
 
+Default language
+
+db.quotes.insertMany( [
+   {
+      _id: 1,
+      quote : "La suerte protege a los audaces."
+   },
+   {
+      _id: 2,
+      quote: "Nada hay más surrealista que la realidad."
+   },
+   {
+      _id: 3,
+      quote: "Es este un puñal que veo delante de mí?"
+   },
+   {
+      _id: 4,
+      quote: "Nunca dejes que la realidad te estropee una buena historia."
+   }
+] )
+
+
+db.quotes.createIndex(
+   { quote: "text" },
+   { default_language: "spanish" }
+)
+
+db.quotes.find(
+   {
+      $text: { $search: "punal" }
+   }
+)
+
+// "hay" is a stop word in spanish for text indexes
+
 
