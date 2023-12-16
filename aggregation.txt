@@ -51,3 +51,12 @@ db.teachers.aggregate([ { $group: { _id: "$age", names: {$push: "$name" } }}])
 
 db.teachers.aggregate([ { $group: { _id: "$age",  doc:{ "$$ROOT"} } }])
 
+
+Map Reduce :
+
+db.teachers.mapReduce(
+... function() { emit(this.gender, this.age); },
+... function(key, value) { return Array.sum(value) }, 
+... { out: "teachersNew" }
+... )
+
