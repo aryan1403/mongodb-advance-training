@@ -12,3 +12,5 @@ db.createUser( {user: "arush", pwd: "arush", roles: [ {role: "read", db: "traini
 db.updateUser('aryan', {pwd: 'ar123'})
 
 
+ db.updateUser('aryan', {pwd: 'ar123', roles: [{role: "read", db: "admin"}]})
+
