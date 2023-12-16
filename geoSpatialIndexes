@@ -50,3 +50,75 @@ db.places.find( {
    }
 } )
 
+Query for Locations that Intersect a GeoJSON Object
+
+db.gasStations.insertMany( [
+   {
+      loc: { type: "Point", coordinates: [ -106.31, 35.65 ] },
+      state: "New Mexico",
+      country: "United States",
+      name: "Horizons Gas Station"
+   },
+   {
+      loc: { type: "Point", coordinates: [ -122.62, 40.75 ] },
+      state: "California",
+      country: "United States",
+      name: "Car and Truck Rest Area"
+   },
+   {
+      loc: { type: "Point", coordinates: [ -72.71, 44.15 ] },
+      state: "Vermont",
+      country: "United States",
+      name: "Ready Gas and Snacks"
+   }
+] )
+
+db.gasStations.find( {
+   loc: {
+      $geoIntersects: {
+         $geometry: {
+            type: "LineString",
+            coordinates: [
+               [ -105.82, 33.87 ],
+               [ -106.01, 34.09 ],
+               [ -106.31, 35.65 ],
+               [ -107.39, 35.98 ]
+            ]
+          }
+      }
+   }
+} )
+
+
+Query for Locations within a Circle on a Sphere
+
+
+db.places.insertMany( [
+   {
+      loc: { type: "Point", coordinates: [ -73.97, 40.77 ] },
+      name: "Central Park",
+      category : "Park"
+   },
+   {
+      loc: { type: "Point", coordinates: [ -73.88, 40.78 ] },
+      name: "La Guardia Airport",
+      category: "Airport"
+   },
+   {
+      loc: { type: "Point", coordinates: [ -1.83, 51.18 ] },
+      name: "Stonehenge",
+      category : "Monument"
+   }
+] )
+
+db.places.find( {
+   loc: {
+      $geoWithin: {
+         $centerSphere: [
+            [ -1.76, 51.16 ],
+            10 / 6378.1
+         ]
+      }
+   }
+} )
+
